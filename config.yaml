@@ -5,9 +5,9 @@
 audio:
   # Dispositivo de entrada (microfone)
   # Use o numero do dispositivo ou parte do nome
-  # Deixe vazio para usar o padrao do Windows
+  # Deixe vazio ou null para usar o padrao do Windows
   # Exemplos: 2, "Fifine", "Logi C270"
-  device: "Fifine"
+  device: null
 
 # === Hotkeys ===
 hotkeys:
@@ -29,7 +29,7 @@ hotkeys:
 transcription:
   # groq: usa API da Groq (rapido, requer internet)
   # local: usa Whisper local (privado, requer GPU)
-  backend: "groq"
+  backend: "local"
 
   groq:
     # API key via variavel de ambiente
@@ -46,7 +46,7 @@ transcription:
 processing:
   # groq: usa LLM via API Groq
   # local: usa Ollama local
-  backend: "groq"
+  backend: "local"
 
   groq:
     model: "llama-3.1-8b-instant"

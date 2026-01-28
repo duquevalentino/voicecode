@@ -10,8 +10,8 @@ from pathlib import Path
 
 from .config import load_config, validate_config, Config
 from .audio.recorder import AudioRecorder
-from .transcription.groq_backend import GroqTranscriber
-from .processing.groq_backend import GroqProcessor
+from .transcription import create_transcriber
+from .processing import create_processor
 from .hotkeys.listener import HotkeyListener, HotkeyCallbacks
 from .output.clipboard import ClipboardOutput
 from .ui.tray import SystemTray
@@ -35,15 +35,8 @@ class VoiceCodeApp:
             on_error=self._on_audio_error,
         )
 
-        self.transcriber = GroqTranscriber(
-            api_key=config.transcription.groq.api_key,
-            model=config.transcription.groq.model,
-        )
-
-        self.processor = GroqProcessor(
-            api_key=config.transcription.groq.api_key,
-            model=config.processing.groq.model,
-        )
+        self.transcriber = create_transcriber(config)
+        self.processor = create_processor(config)
 
         self.history = HistoryLogger(
             file_path=config.history.file,
@@ -216,11 +209,12 @@ class VoiceCodeApp:
 
         print("VoiceCode Starting...")
         print(f"  Audio device: {self.config.audio.device or 'default'}")
-        print(f"  Hotkey: {self.config.hotkeys.main_key}")
-        print(f"  Activation: {self.config.hotkeys.activation_mode}")
-        print(f"  Context modifier: +{self.config.hotkeys.context_modifier}")
-        print(f"  Cycle mode key: {self.config.hotkeys.cycle_mode_key}")
-        print(f"  Processing mode: {self.config.mode}")
+        print(f"  Transcription: {self.config.transcription.backend}")
+        print(f"  Processing: {self.config.processing.backend}")
+        print(f"  Mode: {self.config.mode}")
+        print(f"  Hotkey: {self.config.hotkeys.main_key} ({self.config.hotkeys.activation_mode})")
+        print(f"  Context: +{self.config.hotkeys.context_modifier}")
+        print(f"  Cycle mode: {self.config.hotkeys.cycle_mode_key}")
         print()
 
         # Start components

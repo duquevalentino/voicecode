@@ -1,0 +1,17 @@
+
+Eu quero implementar uma solução de transcrição de voz para código, mas não quero usar o Wispr ou o Superwhisper, porque são pagos ou são para o Mac. Eu uso Windows. 
+
+Conversei com o Gemini, que tem acesso a algumas pesquisas no Reddit e me deu uma ideia de como implementar uma solução DIY usando a API da Groq, dentre outras soluções. A conversa, importantíssima, está na pasta "orientacoes".
+
+Então a questão é a seguinte:
+
+Vamos fazer um processo de engenharia de software para acertarmos na solução, seguinte sempre as melhores práticas, e implementarmos esse MVP rápido e funcional.
+
+Você me fará uma entrevista com todas as perguntas que julga necessárias para contextualizarmos.
+
+Você transformará todo esse input em um documento de especificação de requisitos, e então você me fará um breve diagrama e documentará tanto o diagrama quanto todos os requisitos (caso o contexto da conversa caia e tenhamos que compactar).
+
+Posterior a isso, nós vamos construir um plano de implementação (em etapas se necessário) e aprovado o plano, vamos implementar o código.
+
+Topa o desafio?
+
