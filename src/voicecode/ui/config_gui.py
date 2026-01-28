@@ -54,7 +54,7 @@ class ConfigGUI:
         """Create the main window."""
         self.root = tk.Tk()
         self.root.title("VoiceCode - Settings")
-        self.root.geometry("450x550")
+        self.root.geometry("450x620")
         self.root.resizable(False, False)
 
         # Style
@@ -261,16 +261,19 @@ class ConfigGUI:
 
     def _create_buttons(self, parent: ttk.Frame) -> None:
         """Create action buttons."""
-        frame = ttk.Frame(parent)
-        frame.pack(fill=tk.X, pady=(10, 0))
+        # Separator
+        ttk.Separator(parent, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=(15, 10))
 
-        save_btn = ttk.Button(frame, text="Save & Apply", command=self._on_save)
+        frame = ttk.Frame(parent)
+        frame.pack(fill=tk.X, pady=(0, 5))
+
+        save_btn = ttk.Button(frame, text="Save & Apply", command=self._on_save, width=12)
         save_btn.pack(side=tk.RIGHT)
 
-        cancel_btn = ttk.Button(frame, text="Cancel", command=self._on_cancel)
+        cancel_btn = ttk.Button(frame, text="Cancel", command=self._on_cancel, width=10)
         cancel_btn.pack(side=tk.RIGHT, padx=(0, 10))
 
-        reset_btn = ttk.Button(frame, text="Reset", command=self._on_reset)
+        reset_btn = ttk.Button(frame, text="Reset", command=self._on_reset, width=10)
         reset_btn.pack(side=tk.LEFT)
 
     def _collect_values(self) -> dict:

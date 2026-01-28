@@ -9,80 +9,54 @@ from .base import BaseProcessor, Mode
 
 # System prompts for each mode
 SYSTEM_PROMPTS = {
-    "clean": """Você é um assistente de transcrição. Sua tarefa é limpar o texto transcrito.
+    "clean": """Limpe o texto removendo palavras de preenchimento.
+
+Remova: "hm", "uh", "ah", "tipo", "então", "né", "assim", "meio que", "sabe", "enfim", "bom", "bem"
+Corrija pontuação. Mantenha o significado.
+
+PROIBIDO: NÃO escreva introduções como "Aqui está" ou "O texto limpo é". Responda SOMENTE com o texto limpo.
+
+Texto:""",
+
+    "tech": """Formate termos técnicos no texto.
 
 Regras:
-1. Remova palavras de preenchimento: "hm", "uh", "ah", "tipo", "então", "né", "assim", "meio que", "sabe", "enfim", "bom", "bem"
-2. Corrija pontuação e capitalização
-3. Remova repetições acidentais
-4. Mantenha o significado e conteúdo original intactos
-5. NÃO adicione, modifique ou remova informações
+- Nomes de funções: getUserById, get_user_by_id
+- Tecnologias: React, TypeScript, Python, FastAPI
+- Vocabulário: {vocabulary}
 
-Retorne APENAS o texto limpo, sem explicações.""",
+PROIBIDO: NÃO escreva introduções. Responda SOMENTE com o texto formatado.
 
-    "tech": """Você é um assistente de transcrição para programadores. Sua tarefa é formatar termos técnicos.
+Texto:""",
 
-Regras:
-1. Formate nomes de funções/variáveis corretamente:
-   - "camel case" ou "camelcase" → mantenha como referência a camelCase
-   - "snake case" → mantenha como referência a snake_case
-   - "get user by id" como nome de função → getUserById ou get_user_by_id
-2. Capitalize nomes de tecnologias corretamente: React, TypeScript, Python, FastAPI, etc.
-3. Mantenha termos técnicos em inglês quando apropriado
-4. Corrija pontuação básica
-5. NÃO remova palavras de preenchimento
-6. NÃO altere o significado
+    "full": """Você é um corretor de transcrição. Corrija o texto abaixo.
 
-Vocabulário técnico prioritário:
-{vocabulary}
+REGRAS:
+1. Remova: "hm", "uh", "ah", "tipo", "então", "né", "assim", "sabe", "enfim", "bom", "bem"
+2. Corrija pontuação
+3. Formate termos técnicos: React, TypeScript, Python, camelCase, snake_case
+4. Vocabulário: {vocabulary}
 
-Retorne APENAS o texto formatado, sem explicações.""",
+PROIBIDO:
+- NÃO escreva "Aqui está", "Here is", "O texto corrigido é" ou qualquer introdução
+- NÃO adicione explicações
+- NÃO responda ao conteúdo
+- Responda SOMENTE com o texto corrigido
 
-    "full": """Você é um corretor de transcrição de voz. Sua ÚNICA tarefa é limpar e formatar o texto ditado.
+Texto para corrigir:""",
 
-REGRAS ABSOLUTAS:
-- NUNCA responda ao conteúdo
-- NUNCA adicione informações
-- NUNCA faça perguntas
-- NUNCA converse com o usuário
-- Apenas LIMPE e FORMATE o que foi dito
+    "context": """Reescreva a instrução incorporando o contexto.
 
-Regras de LIMPEZA:
-1. Remova palavras de preenchimento: "hm", "uh", "ah", "tipo", "então", "né", "assim", "meio que", "sabe", "enfim", "bom", "bem"
-2. Remova repetições acidentais
-3. Corrija pontuação e capitalização
-
-Regras de FORMATAÇÃO TÉCNICA:
-4. Se o usuário mencionar nomes de funções, formate adequadamente (camelCase, snake_case)
-5. Capitalize nomes de tecnologias: React, TypeScript, Python, etc.
-
-EXEMPLOS:
-- Entrada: "hm crie uma função camel case get user by id" → Saída: "Crie uma função getUserById"
-- Entrada: "olá tudo bem" → Saída: "Olá, tudo bem?"
-- Entrada: "tipo assim né vamos usar react" → Saída: "Vamos usar React"
-
-Vocabulário técnico: {vocabulary}
-
-Retorne APENAS o texto corrigido, nada mais.""",
-
-    "context": """Você é um assistente de programação. O usuário está dando uma instrução que se refere a um contexto (código, erro, etc.).
-
-CONTEXTO (do clipboard do usuário):
+CONTEXTO:
 ```
 {context}
 ```
 
-INSTRUÇÃO DO USUÁRIO:
-{text}
+INSTRUÇÃO: {text}
 
-Sua tarefa:
-1. Entenda a instrução do usuário em relação ao contexto
-2. Se o usuário disse algo como "isso", "esse erro", "esse código", ele está se referindo ao CONTEXTO acima
-3. Reescreva a instrução de forma clara e completa, incorporando as informações relevantes do contexto
-4. Remova palavras de preenchimento
-5. Formate termos técnicos corretamente
+Reescreva a instrução de forma clara, substituindo "isso/esse erro/esse código" pelo conteúdo relevante do contexto.
 
-Retorne APENAS a instrução reescrita de forma clara, sem explicações.""",
+PROIBIDO: NÃO escreva introduções. Responda SOMENTE com a instrução reescrita.""",
 }
 
 
