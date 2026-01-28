@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voicecode"
+version = "0.1.0"
+description = "Voice-to-text transcription for coding"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+
+dependencies = [
+    "sounddevice>=0.4.0",
+    "numpy>=1.20.0",
+    "scipy>=1.7.0",
+    "groq>=0.4.0",
+    "keyboard>=0.13.0",
+    "pyperclip>=1.8.0",
+    "pystray>=0.19.0",
+    "Pillow>=9.0.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+local = [
+    "faster-whisper>=0.9.0",
+    "ollama>=0.1.0",
+]
+
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[project.scripts]
+voicecode = "voicecode.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

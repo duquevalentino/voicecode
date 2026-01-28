@@ -1,0 +1,121 @@
+# VoiceCode Configuration
+# Documentation: docs/especificacao_requisitos.md
+
+# === Audio ===
+audio:
+  # Dispositivo de entrada (microfone)
+  # Use o numero do dispositivo ou parte do nome
+  # Deixe vazio para usar o padrao do Windows
+  # Exemplos: 2, "Fifine", "Logi C270"
+  device: "Fifine"
+
+# === Hotkeys ===
+hotkeys:
+  # push_to_talk: grava enquanto tecla pressionada
+  # toggle: pressiona para iniciar, pressiona novamente para parar
+  activation_mode: "push_to_talk"
+
+  # Tecla principal de ativacao (exemplos: ctrl+shift+space, f9, caps lock)
+  main_key: "ctrl+shift+space"
+
+  # Modificador para context injection (adiciona clipboard como contexto)
+  # Uso: main_key + context_modifier
+  context_modifier: "alt"
+
+  # Tecla para ciclar entre modos (raw -> clean -> tech -> full)
+  cycle_mode_key: "ctrl+shift+m"
+
+# === Backend de Transcricao (Speech-to-Text) ===
+transcription:
+  # groq: usa API da Groq (rapido, requer internet)
+  # local: usa Whisper local (privado, requer GPU)
+  backend: "groq"
+
+  groq:
+    # API key via variavel de ambiente
+    api_key: "${GROQ_API_KEY}"
+    model: "whisper-large-v3"
+
+  local:
+    # Modelos: tiny, base, small, medium, large-v3
+    model: "large-v3"
+    # cuda: GPU NVIDIA, cpu: processador
+    device: "cuda"
+
+# === Backend de Processamento (LLM para limpeza/formatacao) ===
+processing:
+  # groq: usa LLM via API Groq
+  # local: usa Ollama local
+  backend: "groq"
+
+  groq:
+    model: "llama-3.1-8b-instant"
+
+  local:
+    model: "llama3:8b"
+    endpoint: "http://localhost:11434"
+
+# === Modo de Formatacao ===
+# raw: apenas transcricao, sem processamento
+# clean: remove palavras de preenchimento (hm, tipo, entao)
+# tech: formata termos tecnicos (camelCase, snake_case, nomes de libs)
+# full: clean + tech
+mode: "full"
+
+# === Vocabulario Customizado ===
+# Termos que o LLM deve reconhecer e formatar corretamente
+vocabulary:
+  - "Claude Code"
+  - "Gemini CLI"
+  - "TypeScript"
+  - "JavaScript"
+  - "Python"
+  - "Remotion"
+  - "React"
+  - "Next.js"
+  - "FastAPI"
+  - "Pydantic"
+  - "useState"
+  - "useEffect"
+  - "async"
+  - "await"
+  - "API"
+  - "REST"
+  - "GraphQL"
+  - "JSON"
+  - "YAML"
+  - "Docker"
+  - "Kubernetes"
+  - "Git"
+  - "GitHub"
+
+# === Output ===
+output:
+  # clipboard_only: copia para clipboard, voce cola manualmente
+  # auto_paste: copia e cola automaticamente onde o cursor estiver
+  behavior: "auto_paste"
+
+# === Historico ===
+history:
+  enabled: true
+  # Maximo de entradas antes de rotacionar (sliding window)
+  max_entries: 1000
+  file: "history/history.jsonl"
+
+# === Feedback ===
+feedback:
+  sounds:
+    enabled: true
+    start: "sounds/start.wav"
+    end: "sounds/end.wav"
+
+  tray:
+    # Mostra modo atual no tooltip do icone
+    show_mode_tooltip: true
+
+# === Idiomas ===
+language:
+  # Idioma principal da fala
+  primary: "pt"
+  # Idioma secundario (termos tecnicos)
+  secondary: "en"
