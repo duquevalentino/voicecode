@@ -137,11 +137,14 @@ class ConfigGUI:
         # === BUTTONS ===
         btn_frame = ttk.Frame(container)
         btn_frame.grid(row=row, column=0, sticky="ew", pady=(15, 0))
+        container.columnconfigure(0, weight=1)
         row += 1
 
-        ttk.Button(btn_frame, text="Resetar", command=self._on_reset).pack(side="left")
-        ttk.Button(btn_frame, text="Cancelar", command=self._on_cancel).pack(side="right", padx=(10, 0))
-        ttk.Button(btn_frame, text="Salvar", command=self._on_save).pack(side="right")
+        # Use grid for buttons to ensure visibility
+        btn_frame.columnconfigure(1, weight=1)  # Middle spacer
+        ttk.Button(btn_frame, text="Resetar", command=self._on_reset).grid(row=0, column=0, sticky="w")
+        ttk.Button(btn_frame, text="Salvar", command=self._on_save).grid(row=0, column=2, sticky="e")
+        ttk.Button(btn_frame, text="Cancelar", command=self._on_cancel).grid(row=0, column=3, sticky="e", padx=(10, 0))
 
     def _collect_values(self) -> dict:
         config = self.config_data.copy()

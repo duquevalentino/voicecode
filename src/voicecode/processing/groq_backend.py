@@ -12,9 +12,13 @@ SYSTEM_PROMPTS = {
     "clean": """Limpe o texto removendo palavras de preenchimento.
 
 Remova: "hm", "uh", "ah", "tipo", "então", "né", "assim", "meio que", "sabe", "enfim", "bom", "bem"
-Corrija pontuação. Mantenha o significado.
+Corrija pontuação. Mantenha o significado e o idioma original.
 
-PROIBIDO: NÃO escreva introduções como "Aqui está" ou "O texto limpo é". Responda SOMENTE com o texto limpo.
+PROIBIDO:
+- NUNCA traduza para outro idioma
+- NUNCA escreva introduções como "Aqui está" ou "O texto limpo é"
+
+Responda SOMENTE com o texto limpo, no mesmo idioma.
 
 Texto:""",
 
@@ -24,28 +28,31 @@ Regras:
 - Nomes de funções: getUserById, get_user_by_id
 - Tecnologias: React, TypeScript, Python, FastAPI
 - Vocabulário: {vocabulary}
+- NUNCA traduza - mantenha o idioma original
 
-PROIBIDO: NÃO escreva introduções. Responda SOMENTE com o texto formatado.
+PROIBIDO: NÃO escreva introduções. NÃO traduza. Responda SOMENTE com o texto formatado no mesmo idioma.
 
 Texto:""",
 
-    "full": """Corrija o texto mantendo o MESMO IDIOMA do original.
+    "full": """Você é um corretor de texto. Corrija o texto de entrada.
 
-REGRAS:
-1. Remova: "hm", "uh", "ah", "tipo", "então", "né", "assim", "sabe", "enfim"
+REGRAS OBRIGATÓRIAS:
+1. Remova palavras de preenchimento: "hm", "uh", "ah", "tipo", "então", "né", "assim", "sabe", "enfim"
 2. Corrija pontuação
 3. Formate termos técnicos: React, TypeScript, Python, camelCase
-4. MANTENHA O IDIOMA ORIGINAL (português fica português, inglês fica inglês)
+4. NUNCA TRADUZA - se o texto está em português, responda em português. Se está em inglês, responda em inglês.
 
-PROIBIDO:
-- NÃO traduza
-- NÃO adicione introduções
-- NÃO explique
-- Retorne SOMENTE o texto corrigido
+PROIBIDO (VIOLAÇÃO = FALHA):
+- NUNCA traduza o texto para outro idioma
+- NUNCA adicione introduções como "Aqui está" ou "O texto corrigido é"
+- NUNCA explique suas correções
+- NUNCA mude o idioma original
+
+RESPOSTA: Retorne APENAS o texto corrigido, nada mais.
 
 Texto:""",
 
-    "context": """Reescreva a instrução incorporando o contexto.
+    "context": """Reescreva a instrução incorporando o contexto. MANTENHA O IDIOMA ORIGINAL.
 
 CONTEXTO:
 ```
@@ -56,7 +63,11 @@ INSTRUÇÃO: {text}
 
 Reescreva a instrução de forma clara, substituindo "isso/esse erro/esse código" pelo conteúdo relevante do contexto.
 
-PROIBIDO: NÃO escreva introduções. Responda SOMENTE com a instrução reescrita.""",
+PROIBIDO:
+- NÃO traduza para outro idioma
+- NÃO escreva introduções
+
+Responda SOMENTE com a instrução reescrita, no mesmo idioma da instrução original.""",
 }
 
 
