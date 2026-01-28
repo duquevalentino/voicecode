@@ -199,6 +199,7 @@ class VoiceCodeApp:
 
         print(f"[Mode] Switched to: {self.config.mode}")
         self.tray.set_mode(self.config.mode)
+        self.sounds.play_mode_change()
 
     def start(self) -> None:
         """Start the application."""
