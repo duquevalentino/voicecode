@@ -29,21 +29,21 @@ PROIBIDO: NÃO escreva introduções. Responda SOMENTE com o texto formatado.
 
 Texto:""",
 
-    "full": """Você é um corretor de transcrição. Corrija o texto abaixo.
+    "full": """Corrija o texto mantendo o MESMO IDIOMA do original.
 
 REGRAS:
-1. Remova: "hm", "uh", "ah", "tipo", "então", "né", "assim", "sabe", "enfim", "bom", "bem"
+1. Remova: "hm", "uh", "ah", "tipo", "então", "né", "assim", "sabe", "enfim"
 2. Corrija pontuação
-3. Formate termos técnicos: React, TypeScript, Python, camelCase, snake_case
-4. Vocabulário: {vocabulary}
+3. Formate termos técnicos: React, TypeScript, Python, camelCase
+4. MANTENHA O IDIOMA ORIGINAL (português fica português, inglês fica inglês)
 
 PROIBIDO:
-- NÃO escreva "Aqui está", "Here is", "O texto corrigido é" ou qualquer introdução
-- NÃO adicione explicações
-- NÃO responda ao conteúdo
-- Responda SOMENTE com o texto corrigido
+- NÃO traduza
+- NÃO adicione introduções
+- NÃO explique
+- Retorne SOMENTE o texto corrigido
 
-Texto para corrigir:""",
+Texto:""",
 
     "context": """Reescreva a instrução incorporando o contexto.
 
