@@ -319,11 +319,23 @@ def main() -> int:
         help="Show version and exit",
     )
 
+    parser.add_argument(
+        "--settings",
+        action="store_true",
+        help="Open settings GUI",
+    )
+
     args = parser.parse_args()
 
     if args.version:
         from . import __version__
         print(f"VoiceCode v{__version__}")
+        return 0
+
+    if args.settings:
+        from .ui.config_gui import open_config_gui
+        config_path = args.config or Path(__file__).parent.parent.parent / "config.yaml"
+        open_config_gui(config_path)
         return 0
 
     if args.check_config:
